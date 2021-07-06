@@ -7,7 +7,7 @@
 
 
 #import "LoginViewController.h"
-#import "Parse.h"
+#import <Parse/Parse.h>
 
 @interface LoginViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *usernameField;
@@ -35,6 +35,10 @@
             [self performSegueWithIdentifier:@"loginSegue" sender:nil];
         }
     }];
+}
+- (IBAction)dismissKeyboard:(id)sender {
+    [self.passwordField endEditing:true];
+    [self.usernameField endEditing:true];
 }
 
 /*

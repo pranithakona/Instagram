@@ -6,7 +6,7 @@
 //
 
 #import "SignUpViewController.h"
-#import "Parse.h"
+#import <Parse/Parse.h>
 
 @interface SignUpViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *usernameField;
@@ -20,6 +20,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+}
+
+- (IBAction)dismissKeyboard:(id)sender {
+    [self.usernameField endEditing:true];
+    [self.passwordField endEditing:true];
+    [self.emailField endEditing:true];
 }
 
 - (IBAction)onSignup:(id)sender {
