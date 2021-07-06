@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PostCell" rowHeight="496" id="KGk-i7-Jjw" customClass="PostCell">
+            <rect key="frame" x="0.0" y="0.0" width="453" height="496"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="453" height="496"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d3l-ge-BCE">
+                        <rect key="frame" x="0.0" y="0.0" width="453" height="503.5"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RZA-wU-cVL" customClass="PFImageView">
+                                <rect key="frame" x="0.0" y="0.0" width="453" height="453"/>
+                                <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="RZA-wU-cVL" secondAttribute="height" multiplier="1:1" id="3RP-lU-ZAA"/>
+                                </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="B6Y-Cr-afh" appends="YES" id="gTQ-3d-Ler"/>
+                                </connections>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QXn-Za-yaZ">
+                                <rect key="frame" x="10" y="463" width="433" height="30.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="QXn-Za-yaZ" secondAttribute="trailing" constant="10" id="9Pj-wg-Rhg"/>
+                            <constraint firstItem="RZA-wU-cVL" firstAttribute="top" secondItem="d3l-ge-BCE" secondAttribute="top" id="D2n-gH-Cft"/>
+                            <constraint firstItem="QXn-Za-yaZ" firstAttribute="top" secondItem="RZA-wU-cVL" secondAttribute="bottom" constant="10" id="XYF-nU-1aV"/>
+                            <constraint firstAttribute="trailing" secondItem="RZA-wU-cVL" secondAttribute="trailing" id="gEb-1S-g4o"/>
+                            <constraint firstItem="RZA-wU-cVL" firstAttribute="leading" secondItem="d3l-ge-BCE" secondAttribute="leading" id="hiZ-IW-n8d"/>
+                            <constraint firstAttribute="bottom" secondItem="QXn-Za-yaZ" secondAttribute="bottom" constant="10" id="lUw-LB-bvu"/>
+                            <constraint firstItem="RZA-wU-cVL" firstAttribute="height" secondItem="d3l-ge-BCE" secondAttribute="height" multiplier="0.899504" id="qgL-4I-t1G"/>
+                            <constraint firstItem="QXn-Za-yaZ" firstAttribute="leading" secondItem="d3l-ge-BCE" secondAttribute="leading" constant="10" id="xTe-Yr-sJq"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" red="0.87058823529999996" green="0.3803921569" blue="0.33725490200000002" alpha="1" colorSpace="calibratedRGB"/>
+                <constraints>
+                    <constraint firstItem="d3l-ge-BCE" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="5dU-yd-E6J"/>
+                    <constraint firstAttribute="trailing" secondItem="d3l-ge-BCE" secondAttribute="trailing" id="MeA-Jb-N7z"/>
+                    <constraint firstItem="d3l-ge-BCE" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="V6N-ld-ouR"/>
+                    <constraint firstAttribute="bottom" secondItem="d3l-ge-BCE" secondAttribute="bottom" id="lQZ-nX-NKN"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
+            <constraints>
+                <constraint firstItem="RZA-wU-cVL" firstAttribute="width" secondItem="aW0-zy-SZf" secondAttribute="width" id="795-le-2DZ"/>
+            </constraints>
+            <connections>
+                <outlet property="captionLabel" destination="QXn-Za-yaZ" id="5TN-9S-YOi"/>
+                <outlet property="photoView" destination="RZA-wU-cVL" id="OXH-w4-Ju8"/>
+            </connections>
+            <point key="canvasLocation" x="171.73913043478262" y="184.15178571428569"/>
+        </tableViewCell>
+        <tapGestureRecognizer id="B6Y-Cr-afh">
+            <connections>
+                <action selector="didTap:" destination="KGk-i7-Jjw" id="BWI-dE-f9H"/>
+            </connections>
+        </tapGestureRecognizer>
+    </objects>
+</document>
