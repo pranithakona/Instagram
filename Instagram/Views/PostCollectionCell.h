@@ -24,6 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *photoWidthConstraint;
 @property (weak, nonatomic) IBOutlet UIImageView *profileView;
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
+@property (weak, nonatomic) IBOutlet UIView *cardView;
 
 @property (strong, nonatomic) Post *post;
 @property (nonatomic, weak) id<PostCollectionCellDelegate> delegate;

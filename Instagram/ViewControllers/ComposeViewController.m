@@ -29,7 +29,7 @@
     }
     else {
         NSLog(@"Camera 🚫 available so we will use photo library instead");
-        imagePickerVC.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        imagePickerVC.sourceType =  UIImagePickerControllerSourceTypePhotoLibrary;
     }
 
     [self presentViewController:imagePickerVC animated:YES completion:nil];
@@ -41,6 +41,7 @@
     UIImage *originalImage = info[UIImagePickerControllerOriginalImage];
     UIImage *editedImage = info[UIImagePickerControllerEditedImage];
 
+    
     self.photoView.image = originalImage;
     
     // Dismiss UIImagePickerController to go back to your original view controller

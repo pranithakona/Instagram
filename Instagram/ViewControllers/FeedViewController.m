@@ -6,7 +6,7 @@
 //
 
 #import "FeedViewController.h"
-#import "LoginViewController.h"
+#import "OpeningViewController.h"
 #import "DetailsViewController.h"
 #import "SceneDelegate.h"
 #import "PostCollectionCell.h"
@@ -110,8 +110,8 @@
     
     SceneDelegate *sceneDelegate = (SceneDelegate *)[UIApplication sharedApplication].connectedScenes.allObjects[0].delegate;
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    LoginViewController *loginViewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
-    sceneDelegate.window.rootViewController = loginViewController;
+    OpeningViewController *openingViewController = [storyboard instantiateViewControllerWithIdentifier:@"OpeningViewController"];
+    sceneDelegate.window.rootViewController = openingViewController;
 }
 
 

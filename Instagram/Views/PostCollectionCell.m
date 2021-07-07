@@ -14,7 +14,9 @@
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTap:)];
     [self.photoView addGestureRecognizer:tap];
     self.profileView.layer.cornerRadius = self.profileView.bounds.size.width/2;
-    self.photoView.layer.cornerRadius = 20;
+    self.photoView.layer.cornerRadius = 40;
+    self.cardView.layer.masksToBounds = true;
+    self.cardView.layer.cornerRadius = 30;
 }
 
 - (void)setCellWithPost: (Post*) post screenWidth:(CGFloat)width{
