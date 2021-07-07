@@ -13,6 +13,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *authorLabel;
 @property (weak, nonatomic) IBOutlet UILabel *captionLabel;
 @property (weak, nonatomic) IBOutlet UILabel *createdAtLabel;
+@property (weak, nonatomic) IBOutlet UIView *cardView;
 
 @end
 
@@ -26,6 +27,8 @@
     self.authorLabel.text = self.post.author.username;
     self.captionLabel.text = self.post.caption;
     self.createdAtLabel.text = [NSString stringWithFormat: @"%@", self.post.createdAt];
+    self.photoView.layer.cornerRadius = 10;
+    self.cardView.layer.cornerRadius = 40;
 }
 
 /*

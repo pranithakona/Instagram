@@ -9,12 +9,13 @@
 #import "LoginViewController.h"
 #import "DetailsViewController.h"
 #import "SceneDelegate.h"
-#import "PostCell.h"
+#import "PostCollectionCell.h"
 #import <Parse/Parse.h>
 
-@interface FeedViewController () <UITableViewDelegate, UITableViewDataSource, PostCellDelegate>
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@interface FeedViewController () <UICollectionViewDelegate, UICollectionViewDataSource, PostCollectionCellDelegate, UICollectionViewDelegateFlowLayout>
+//@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
 @property (strong, nonatomic) NSArray *arrayOfPosts;
 @property (strong, nonatomic)  UIRefreshControl *refreshControl;
@@ -26,14 +27,21 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
+    self.collectionView.delegate = self;
+    self.collectionView.dataSource = self;
     
-    self.tableView.rowHeight = UITableViewAutomaticDimension;
+    //self.tableView.rowHeight = UITableViewAutomaticDimension;
+    UICollectionViewFlowLayout *layout = [self.collectionView collectionViewLayout];
+    layout.estimatedItemSize = UICollectionViewFlowLayoutAutomaticSize;
+//    layout.minimumInteritemSpacing = -100;
+//    layout.minimumLineSpacing = -100;
+
+    [self.collectionView registerNib:[UINib nibWithNibName:@"PostCollectionCell" bundle:nil] forCellWithReuseIdentifier:@"PostCollectionCell"];
+    self.collectionView.collectionViewLayout = layout;
     
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(fetchFeed) forControlEvents:UIControlEventValueChanged];
-    [self.tableView insertSubview:self.refreshControl atIndex:0];
+    [self.collectionView insertSubview:self.refreshControl atIndex:0];
     self.refreshControl.tintColor = [UIColor blackColor];
     
     [self fetchFeed];
@@ -50,8 +58,8 @@
     [query findObjectsInBackgroundWithBlock:^(NSArray *posts, NSError *error) {
         if (posts != nil) {
             self.arrayOfPosts = posts;
-            [self.tableView reloadData];
-            [self.tableView setContentOffset:CGPointMake(0,1) animated:YES];
+            [self.collectionView reloadData];
+            //[self.tableView setContentOffset:CGPointMake(0,1) animated:YES];
             NSLog(@"Successfully loaded timeline");
         } else {
             NSLog(@"error: %@", error.localizedDescription);
@@ -60,23 +68,35 @@
     [self.refreshControl endRefreshing];
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     return self.arrayOfPosts.count;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+
+- (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     
-    PostCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PostCell"];
-    
+    PostCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PostCollectionCell" forIndexPath:indexPath];
+
     if (cell == nil) {
-            NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"PostCell" owner:self options:nil];
+            NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"PostCollectionCell" owner:self options:nil];
             cell = [topLevelObjects objectAtIndex:0];
     }
     
     cell.delegate = self;
-    [cell setCellWithPost:self.arrayOfPosts[indexPath.item]];
+    [cell setCellWithPost:self.arrayOfPosts[indexPath.item] screenWidth:self.collectionView.frame.size.width];
+    
+    [cell setNeedsLayout];
+    [cell layoutIfNeeded];
     
     return cell;
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
+    return -10;
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section{
+    return -10;
 }
 
 - (void)clickPost: (Post *) post{
