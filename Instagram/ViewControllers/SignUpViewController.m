@@ -6,6 +6,7 @@
 //
 
 #import "SignUpViewController.h"
+#import "User.h"
 #import <Parse/Parse.h>
 
 @interface SignUpViewController ()
@@ -21,6 +22,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.signupButton.layer.cornerRadius = 5;
+    [self.usernameField becomeFirstResponder];
 }
 
 - (IBAction)dismissKeyboard:(id)sender {
@@ -43,7 +45,7 @@
                NSLog(@"Error: %@", error.localizedDescription);
            } else {
                NSLog(@"User registered successfully");
-               
+               [User createUser:[PFUser currentUser] withImage:nil withName:[PFUser currentUser].username withUsername:[PFUser currentUser].username withBio:nil withCompletion:nil];
                [self performSegueWithIdentifier:@"signupSegue" sender:nil];
            }
        }];

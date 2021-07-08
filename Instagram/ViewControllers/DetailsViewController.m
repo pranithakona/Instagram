@@ -8,7 +8,6 @@
 #import "DetailsViewController.h"
 #import <Parse/PFImageView.h>
 #import "CommentCell.h"
-#import "Comment.h"
 
 @interface DetailsViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet PFImageView *photoView;
@@ -36,14 +35,14 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
-    self.hiddenField.delegate = self;
-    self.hiddenField.inputAccessoryView = self.keyboardToolbar;
+    self.commentField.delegate = self;
+    self.commentField.inputAccessoryView = self.keyboardToolbar;
     self.keyboardToolbar.layer.cornerRadius = 15;
     self.toolbarImageView.layer.cornerRadius = self.toolbarImageView.bounds.size.width/2;
     
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     
-    self.photoView.layer.cornerRadius = 40;
+    self.photoView.layer.cornerRadius = 30;
     self.photoView.file = self.post.image;
     [self.photoView loadInBackground];
     self.authorLabel.text = self.post.author.username;
@@ -96,23 +95,23 @@
 }
 
 - (IBAction)didComment:(id)sender {
-    if (self.hiddenField.isFirstResponder){
-        [self.hiddenField resignFirstResponder];
+    if (self.commentField.isFirstResponder){
+        NSLog(@"yes");
+        //self.keyboardToolbar.hidden = true;
         [self.commentField resignFirstResponder];
-        self.keyboardToolbar.hidden = true;
+        
     } else {
-        [self.hiddenField becomeFirstResponder];
+        NSLog(@"no");
+        //self.keyboardToolbar.hidden = false;
         [self.commentField becomeFirstResponder];
-        self.keyboardToolbar.hidden = false;
+        
     }
 }
 
 - (IBAction)didPostComment:(id)sender {
-    Comment *comment = [[Comment alloc] init];
-    comment.comment = self.commentField.text;
-    comment.author = [PFUser currentUser];
+    NSDictionary *comment = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:[PFUser currentUser].username, self.commentField.text, nil] forKeys:[NSArray arrayWithObjects:@"author", @"comment", nil]];
     self.post.commentCount = [NSNumber numberWithInt:[self.post.commentCount intValue] + 1];
-    [self.arrayOfComments insertObject:self.commentField.text atIndex:0];
+    [self.arrayOfComments insertObject:comment atIndex:0];
     [self.tableView reloadData];
     
     [self.post setObject:self.arrayOfComments forKey:@"comments"];
@@ -130,10 +129,10 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     CommentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CommentCell"];
     
-//    Comment *comment = self.arrayOfComments[indexPath.row];
-//
-//    cell.authorLabel.text = comment.author.username;
-    cell.commentLabel.text = self.arrayOfComments[indexPath.row];
+    NSDictionary *comment = self.arrayOfComments[indexPath.row];
+
+    cell.authorLabel.text = comment[@"author"];
+    cell.commentLabel.text = comment[@"comment"];
     
     return cell;
 }

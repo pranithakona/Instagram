@@ -16,6 +16,7 @@
 //@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 @property (strong, nonatomic) NSArray *arrayOfPosts;
 @property (strong, nonatomic)  UIRefreshControl *refreshControl;
@@ -30,22 +31,23 @@
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     
-    //self.tableView.rowHeight = UITableViewAutomaticDimension;
     UICollectionViewFlowLayout *layout = [self.collectionView collectionViewLayout];
     layout.estimatedItemSize = UICollectionViewFlowLayoutAutomaticSize;
-//    layout.minimumInteritemSpacing = -100;
-//    layout.minimumLineSpacing = -100;
-
+    layout.minimumLineSpacing = -60;
     [self.collectionView registerNib:[UINib nibWithNibName:@"PostCollectionCell" bundle:nil] forCellWithReuseIdentifier:@"PostCollectionCell"];
     self.collectionView.collectionViewLayout = layout;
     
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(fetchFeed) forControlEvents:UIControlEventValueChanged];
     [self.collectionView insertSubview:self.refreshControl atIndex:0];
-    self.refreshControl.tintColor = [UIColor blackColor];
     
+    [self.activityIndicator startAnimating];
     [self fetchFeed];
     
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+     self.navigationController.navigationBar.hidden = YES;
 }
 
 -(void) fetchFeed{
@@ -59,13 +61,14 @@
         if (posts != nil) {
             self.arrayOfPosts = posts;
             [self.collectionView reloadData];
-            //[self.tableView setContentOffset:CGPointMake(0,1) animated:YES];
+            [self.refreshControl endRefreshing];
+            [self.activityIndicator stopAnimating];
             NSLog(@"Successfully loaded timeline");
         } else {
             NSLog(@"error: %@", error.localizedDescription);
         }
     }];
-    [self.refreshControl endRefreshing];
+    
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
@@ -91,28 +94,10 @@
     return cell;
 }
 
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
-    return -10;
-}
-
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section{
-    return -10;
-}
-
 - (void)clickPost: (Post *) post{
     [self performSegueWithIdentifier:@"DetailsSegue" sender:post];
 }
 
-- (IBAction)onLogout:(id)sender {
-    [PFUser logOutInBackgroundWithBlock:^(NSError * _Nullable error) {
-        // PFUser.current() will now be nil
-    }];
-    
-    SceneDelegate *sceneDelegate = (SceneDelegate *)[UIApplication sharedApplication].connectedScenes.allObjects[0].delegate;
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    OpeningViewController *openingViewController = [storyboard instantiateViewControllerWithIdentifier:@"OpeningViewController"];
-    sceneDelegate.window.rootViewController = openingViewController;
-}
 
 
 #pragma mark - Navigation

@@ -21,6 +21,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.loginButton.layer.cornerRadius = 5;
+    [self.usernameField becomeFirstResponder];
 }
 
 - (IBAction)onLogin:(id)sender {

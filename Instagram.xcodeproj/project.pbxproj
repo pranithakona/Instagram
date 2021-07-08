@@ -13,8 +13,17 @@
 		33C640AA26952BA500726C4E /* PostCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 33C640A826952BA500726C4E /* PostCollectionCell.m */; };
 		33C640AB26952BA500726C4E /* PostCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 33C640A926952BA500726C4E /* PostCollectionCell.xib */; };
 		33C640AE2695755E00726C4E /* OpeningViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 33C640AD2695755E00726C4E /* OpeningViewController.m */; };
-		33C640B126960F8700726C4E /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = 33C640B026960F8700726C4E /* Comment.m */; };
 		33C640B42696174500726C4E /* CommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 33C640B32696174500726C4E /* CommentCell.m */; };
+		33C640B72696547B00726C4E /* UserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 33C640B62696547B00726C4E /* UserViewController.m */; };
+		33C640BA26966C8600726C4E /* ProfileHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 33C640B926966C8600726C4E /* ProfileHeaderView.m */; };
+		33C640BD2696700A00726C4E /* ProfileCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 33C640BC2696700A00726C4E /* ProfileCell.m */; };
+		33C640C02696C30400726C4E /* NewPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 33C640BF2696C30400726C4E /* NewPostViewController.m */; };
+		33C640C5269790C200726C4E /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 33C640C4269790C200726C4E /* ProfileViewController.m */; };
+		33C640C82697968500726C4E /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 33C640C72697968500726C4E /* User.m */; };
+		33C640CB2697A50000726C4E /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 33C640CA2697A50000726C4E /* SettingsViewController.m */; };
+		33C640CD2697ABC300726C4E /* UserView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 33C640CC2697ABC300726C4E /* UserView.xib */; };
+		33C640D02697ACF400726C4E /* UserView.m in Sources */ = {isa = PBXBuildFile; fileRef = 33C640CF2697ACF400726C4E /* UserView.m */; };
+		33C640D22697AE7E00726C4E /* ProfileHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 33C640D12697AE7E00726C4E /* ProfileHeaderView.xib */; };
 		33E329C02694E562006C13FD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 33E329BF2694E562006C13FD /* AppDelegate.m */; };
 		33E329C32694E562006C13FD /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 33E329C22694E562006C13FD /* SceneDelegate.m */; };
 		33E329C62694E562006C13FD /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 33E329C52694E562006C13FD /* ViewController.m */; };
@@ -63,10 +72,26 @@
 		33C640A926952BA500726C4E /* PostCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostCollectionCell.xib; sourceTree = "<group>"; };
 		33C640AC2695755E00726C4E /* OpeningViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpeningViewController.h; sourceTree = "<group>"; };
 		33C640AD2695755E00726C4E /* OpeningViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OpeningViewController.m; sourceTree = "<group>"; };
-		33C640AF26960F8700726C4E /* Comment.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Comment.h; sourceTree = "<group>"; };
-		33C640B026960F8700726C4E /* Comment.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Comment.m; sourceTree = "<group>"; };
 		33C640B22696174500726C4E /* CommentCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommentCell.h; sourceTree = "<group>"; };
 		33C640B32696174500726C4E /* CommentCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommentCell.m; sourceTree = "<group>"; };
+		33C640B52696547B00726C4E /* UserViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserViewController.h; sourceTree = "<group>"; };
+		33C640B62696547B00726C4E /* UserViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserViewController.m; sourceTree = "<group>"; };
+		33C640B826966C8600726C4E /* ProfileHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileHeaderView.h; sourceTree = "<group>"; };
+		33C640B926966C8600726C4E /* ProfileHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileHeaderView.m; sourceTree = "<group>"; };
+		33C640BB2696700A00726C4E /* ProfileCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileCell.h; sourceTree = "<group>"; };
+		33C640BC2696700A00726C4E /* ProfileCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileCell.m; sourceTree = "<group>"; };
+		33C640BE2696C30400726C4E /* NewPostViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewPostViewController.h; sourceTree = "<group>"; };
+		33C640BF2696C30400726C4E /* NewPostViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewPostViewController.m; sourceTree = "<group>"; };
+		33C640C3269790C200726C4E /* ProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
+		33C640C4269790C200726C4E /* ProfileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
+		33C640C62697968500726C4E /* User.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		33C640C72697968500726C4E /* User.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		33C640C92697A50000726C4E /* SettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		33C640CA2697A50000726C4E /* SettingsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
+		33C640CC2697ABC300726C4E /* UserView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserView.xib; sourceTree = "<group>"; };
+		33C640CE2697ACF400726C4E /* UserView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserView.h; sourceTree = "<group>"; };
+		33C640CF2697ACF400726C4E /* UserView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserView.m; sourceTree = "<group>"; };
+		33C640D12697AE7E00726C4E /* ProfileHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileHeaderView.xib; sourceTree = "<group>"; };
 		33E329BB2694E562006C13FD /* Instagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Instagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		33E329BE2694E562006C13FD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		33E329BF2694E562006C13FD /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -199,6 +224,14 @@
 				33C640A926952BA500726C4E /* PostCollectionCell.xib */,
 				33C640B22696174500726C4E /* CommentCell.h */,
 				33C640B32696174500726C4E /* CommentCell.m */,
+				33C640B826966C8600726C4E /* ProfileHeaderView.h */,
+				33C640B926966C8600726C4E /* ProfileHeaderView.m */,
+				33C640D12697AE7E00726C4E /* ProfileHeaderView.xib */,
+				33C640BB2696700A00726C4E /* ProfileCell.h */,
+				33C640BC2696700A00726C4E /* ProfileCell.m */,
+				33C640CC2697ABC300726C4E /* UserView.xib */,
+				33C640CE2697ACF400726C4E /* UserView.h */,
+				33C640CF2697ACF400726C4E /* UserView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -208,8 +241,8 @@
 			children = (
 				33C640942694F68300726C4E /* Post.h */,
 				33C640952694F68300726C4E /* Post.m */,
-				33C640AF26960F8700726C4E /* Comment.h */,
-				33C640B026960F8700726C4E /* Comment.m */,
+				33C640C62697968500726C4E /* User.h */,
+				33C640C72697968500726C4E /* User.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -227,6 +260,14 @@
 				33C640922694F47E00726C4E /* ComposeViewController.m */,
 				33C640A226951BFB00726C4E /* DetailsViewController.h */,
 				33C640A326951BFB00726C4E /* DetailsViewController.m */,
+				33C640B52696547B00726C4E /* UserViewController.h */,
+				33C640B62696547B00726C4E /* UserViewController.m */,
+				33C640BE2696C30400726C4E /* NewPostViewController.h */,
+				33C640BF2696C30400726C4E /* NewPostViewController.m */,
+				33C640C3269790C200726C4E /* ProfileViewController.h */,
+				33C640C4269790C200726C4E /* ProfileViewController.m */,
+				33C640C92697A50000726C4E /* SettingsViewController.h */,
+				33C640CA2697A50000726C4E /* SettingsViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -362,9 +403,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				33E329CE2694E563006C13FD /* LaunchScreen.storyboard in Resources */,
+				33C640D22697AE7E00726C4E /* ProfileHeaderView.xib in Resources */,
 				33E329CB2694E563006C13FD /* Assets.xcassets in Resources */,
 				33E329C92694E562006C13FD /* Main.storyboard in Resources */,
 				33C640AB26952BA500726C4E /* PostCollectionCell.xib in Resources */,
+				33C640CD2697ABC300726C4E /* UserView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -496,13 +539,20 @@
 				33C640A426951BFB00726C4E /* DetailsViewController.m in Sources */,
 				33E329C02694E562006C13FD /* AppDelegate.m in Sources */,
 				33E329FE2694EB77006C13FD /* FeedViewController.m in Sources */,
+				33C640BA26966C8600726C4E /* ProfileHeaderView.m in Sources */,
 				33E329FB2694E8AF006C13FD /* SignUpViewController.m in Sources */,
 				33C640962694F68300726C4E /* Post.m in Sources */,
-				33C640B126960F8700726C4E /* Comment.m in Sources */,
+				33C640CB2697A50000726C4E /* SettingsViewController.m in Sources */,
+				33C640C02696C30400726C4E /* NewPostViewController.m in Sources */,
 				33C640AE2695755E00726C4E /* OpeningViewController.m in Sources */,
+				33C640D02697ACF400726C4E /* UserView.m in Sources */,
+				33C640B72696547B00726C4E /* UserViewController.m in Sources */,
+				33C640C5269790C200726C4E /* ProfileViewController.m in Sources */,
+				33C640BD2696700A00726C4E /* ProfileCell.m in Sources */,
 				33E329D12694E563006C13FD /* main.m in Sources */,
 				33C640B42696174500726C4E /* CommentCell.m in Sources */,
 				33E329C32694E562006C13FD /* SceneDelegate.m in Sources */,
+				33C640C82697968500726C4E /* User.m in Sources */,
 				33C640AA26952BA500726C4E /* PostCollectionCell.m in Sources */,
 				33E329F82694E8A7006C13FD /* LoginViewController.m in Sources */,
 				33C640932694F47E00726C4E /* ComposeViewController.m in Sources */,

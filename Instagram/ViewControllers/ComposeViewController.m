@@ -6,11 +6,13 @@
 //
 
 #import "ComposeViewController.h"
+#import "NewPostViewController.h"
 #import "Post.h"
 
 @interface ComposeViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *photoView;
-@property (weak, nonatomic) IBOutlet UITextField *captionField;
+@property (weak, nonatomic) IBOutlet UIButton *nextButton;
+@property (weak, nonatomic) IBOutlet UIButton *addButton;
 
 @end
 
@@ -19,71 +21,60 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.nextButton.layer.cornerRadius = 10;
+    self.addButton.layer.cornerRadius = 10;
+    
     UIImagePickerController *imagePickerVC = [UIImagePickerController new];
     imagePickerVC.delegate = self;
     imagePickerVC.allowsEditing = YES;
-
-    // The Xcode simulator does not support taking pictures, so let's first check that the camera is indeed supported on the device before trying to present it.
-    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+    
+    NSMutableArray *array = [NSArray arrayWithObjects:
+      [UIAction actionWithTitle:@"Camera" image:nil identifier:nil handler:^(UIAction* action){
         imagePickerVC.sourceType = UIImagePickerControllerSourceTypeCamera;
+        [self presentViewController:imagePickerVC animated:YES completion:nil];
+}],
+      [UIAction actionWithTitle:@"Photo Library" image:nil identifier:nil handler:^(UIAction* action){
+        imagePickerVC.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        [self presentViewController:imagePickerVC animated:YES completion:nil];
+}],
+      nil];
+    
+    if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
+        [array removeObjectAtIndex:1];
     }
-    else {
-        NSLog(@"Camera 🚫 available so we will use photo library instead");
-        imagePickerVC.sourceType =  UIImagePickerControllerSourceTypePhotoLibrary;
-    }
+    
+    UIMenu *menu = [UIMenu menuWithTitle:@"" children:array];
+    self.addButton.menu = menu;
+    self.addButton.showsMenuAsPrimaryAction = true;
 
-    [self presentViewController:imagePickerVC animated:YES completion:nil];
+   
 }
+
+//- (void)viewWillAppear:(BOOL)animated{
+//    self.photoView.image = [UIImage systemImageNamed:@"camera.metering"];
+//    self.nextButton.hidden = true;
+//}
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
     
-    // Get the image captured by the UIImagePickerController
     UIImage *originalImage = info[UIImagePickerControllerOriginalImage];
     UIImage *editedImage = info[UIImagePickerControllerEditedImage];
 
     
     self.photoView.image = originalImage;
     
-    // Dismiss UIImagePickerController to go back to your original view controller
     [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (UIImage *)resizeImage:(UIImage *)image withSize:(CGSize)size {
-    UIImageView *resizeImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height)];
-    
-    resizeImageView.contentMode = UIViewContentModeScaleAspectFill;
-    resizeImageView.image = image;
-    
-    UIGraphicsBeginImageContext(size);
-    [resizeImageView.layer renderInContext:UIGraphicsGetCurrentContext()];
-    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    return newImage;
-}
-
-- (IBAction)onPost:(id)sender {
-    UIImage *newImage = [self resizeImage:self.photoView.image withSize:CGSizeMake(500, 500)];
-    [Post postUserImage:newImage withCaption:self.captionField.text withCompletion:^(BOOL succeeded, NSError *error) {
-        if (succeeded){
-            NSLog(@"successfully posted picture");
-            [self dismissViewControllerAnimated:true completion:nil];
-        } else {
-            NSLog(@"error: %@", error);
-        }
-    }];
-    
+    self.nextButton.hidden = false;
 }
 
 
-/*
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    NewPostViewController *newPostViewController = [segue destinationViewController];
+    newPostViewController.image = self.photoView.image;
 }
-*/
+
 
 @end
