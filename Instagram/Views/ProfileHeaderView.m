@@ -9,11 +9,10 @@
 
 @implementation ProfileHeaderView
 
-- (void)awakeFromNib{
+- (void)awakeFromNib {
     [super awakeFromNib];
     self.cardView.layer.cornerRadius = 40;
     self.profileImageView.layer.cornerRadius = self.profileImageView.bounds.size.width /2;
-    
 }
 
 @end

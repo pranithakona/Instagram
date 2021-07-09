@@ -31,27 +31,24 @@
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     
-    
     UICollectionViewFlowLayout *layout = [self.collectionView collectionViewLayout];
     layout.minimumLineSpacing = 5;
     layout.minimumInteritemSpacing = 5;
     CGFloat itemWidth = (self.collectionView.frame.size.width - 30 - layout.minimumInteritemSpacing * 3)/3;
     layout.itemSize = CGSizeMake(itemWidth, itemWidth);
     
-    
     [self.collectionView registerNib:[UINib nibWithNibName:@"ProfileHeaderView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"ProfileHeaderView"];
     
     [self.activityIndicator startAnimating];
     [self fetchFeed];
     [self fetchUser];
-    
 }
 
-- (void)viewWillAppear:(BOOL)animated{
+- (void)viewWillAppear:(BOOL)animated {
     [self.collectionView reloadData];
 }
 
--(void) fetchFeed{
+- (void)fetchFeed {
     PFQuery *query = [PFQuery queryWithClassName:@"Post"];
     [query orderByDescending:@"createdAt"];
     query.limit = 20;
@@ -67,10 +64,9 @@
             NSLog(@"error: %@", error.localizedDescription);
         }
     }];
-    
 }
 
--(void) fetchUser{
+- (void)fetchUser {
     PFQuery *query = [PFQuery queryWithClassName:@"Account"];
     query.limit = 20;
     [query whereKey:@"user" equalTo:[PFUser currentUser]];
@@ -89,14 +85,13 @@
             NSLog(@"error: %@", error.localizedDescription);
         }
     }];
-    
 }
 
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return self.arrayOfPosts.count;
 }
 
-- (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+- (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     UserCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"UserCell" forIndexPath:indexPath];
     
     Post *post = self.arrayOfPosts[indexPath.row];
@@ -106,7 +101,7 @@
     return cell;
 }
 
-- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
     ProfileHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind: UICollectionElementKindSectionHeader withReuseIdentifier:@"ProfileHeaderView" forIndexPath:indexPath];
 
     NSArray *array = [NSArray arrayWithObjects:
@@ -124,15 +119,13 @@
     if (self.user.image){
         headerView.profileImageView.file = self.user.image;
         [headerView.profileImageView loadInBackground];
-    }
-    else {
+    } else {
         headerView.profileImageView.image = [UIImage systemImageNamed:@"person.circle"];
     }
     headerView.postsLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)self.arrayOfPosts.count];
     headerView.followersLabel.text = [NSString stringWithFormat:@"%u", arc4random_uniform(1000)];
     headerView.followingLabel.text = [NSString stringWithFormat:@"%u", arc4random_uniform(1000)];
     return headerView;
-
 }
 
 - (void)onLogout {
@@ -142,17 +135,13 @@
         OpeningViewController *openingViewController = [storyboard instantiateViewControllerWithIdentifier:@"OpeningViewController"];
         sceneDelegate.window.rootViewController = openingViewController;
     }];
-    
 }
-
 
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     SettingsViewController *settingsViewController = [segue destinationViewController];
     settingsViewController.user = sender;
 }
-
 
 @end

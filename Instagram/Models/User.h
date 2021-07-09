@@ -18,7 +18,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) PFFileObject *image;
 
-
 + (void) createUser: (PFUser *) user withImage:( UIImage * _Nullable )image withName: ( NSString * _Nullable )name withBio: ( NSString * _Nullable )bio withCompletion: (PFBooleanResultBlock  _Nullable)completion;
 
 @end

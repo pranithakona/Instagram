@@ -14,10 +14,4 @@
     self.profileImageView.layer.cornerRadius = self.profileImageView.bounds.size.width/2;
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
-}
-
 @end

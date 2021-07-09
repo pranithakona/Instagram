@@ -9,7 +9,7 @@
 
 @implementation UserCell
 
-- (void)awakeFromNib{
+- (void)awakeFromNib {
     [super awakeFromNib];
     self.photoView.layer.cornerRadius = 20;
 }

@@ -15,6 +15,7 @@
 #import <Parse/Parse.h>
 
 @interface ProfileViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
+
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
@@ -30,27 +31,23 @@
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     
-    
     UICollectionViewFlowLayout *layout = [self.collectionView collectionViewLayout];
     layout.minimumLineSpacing = 5;
     layout.minimumInteritemSpacing = 5;
     CGFloat itemWidth = (self.collectionView.frame.size.width - 30 - layout.minimumInteritemSpacing * 3)/3;
     layout.itemSize = CGSizeMake(itemWidth, itemWidth);
     
-    
     [self.collectionView registerNib:[UINib nibWithNibName:@"ProfileHeaderView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"ProfileHeaderView"];
     
     [self.activityIndicator startAnimating];
     [self fetchFeed];
-    
-
 }
 
-- (void)viewWillAppear:(BOOL)animated{
+- (void)viewWillAppear:(BOOL)animated {
     [self.collectionView reloadData];
 }
 
--(void) fetchFeed{
+- (void)fetchFeed {
     PFQuery *query = [PFQuery queryWithClassName:@"Post"];
     [query orderByDescending:@"createdAt"];
     query.limit = 20;
@@ -66,24 +63,22 @@
             NSLog(@"error: %@", error.localizedDescription);
         }
     }];
-    
 }
 
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return self.arrayOfPosts.count;
 }
 
-- (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+- (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     ProfileCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ProfileCell" forIndexPath:indexPath];
     
     Post *post = self.arrayOfPosts[indexPath.row];
-
     cell.photoView.file = post[@"image"];
     [cell.photoView loadInBackground];
     return cell;
 }
 
-- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
     ProfileHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind: UICollectionElementKindSectionHeader withReuseIdentifier:@"ProfileHeaderView" forIndexPath:indexPath];
 
     headerView.optionsButton.hidden = true;
@@ -95,38 +90,13 @@
     if (self.user.image){
         headerView.profileImageView.file = self.user.image;
         [headerView.profileImageView loadInBackground];
-    }
-    else {
+    } else {
         headerView.profileImageView.image = [UIImage systemImageNamed:@"person.circle"];
     }
     headerView.postsLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)self.arrayOfPosts.count];
     headerView.followersLabel.text = [NSString stringWithFormat:@"%u", arc4random_uniform(1000)];
     headerView.followingLabel.text = [NSString stringWithFormat:@"%u", arc4random_uniform(1000)];
     return headerView;
-
 }
-
-- (void)didTapProfile{
-    [self dismissViewControllerAnimated:true completion:nil];
-}
-
-- (void)onLogout {
-    [PFUser logOutInBackgroundWithBlock:^(NSError * _Nullable error) {
-        SceneDelegate *sceneDelegate = (SceneDelegate *)[UIApplication sharedApplication].connectedScenes.allObjects[0].delegate;
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        OpeningViewController *openingViewController = [storyboard instantiateViewControllerWithIdentifier:@"OpeningViewController"];
-        sceneDelegate.window.rootViewController = openingViewController;
-    }];
-    
-}
-
-
-#pragma mark - Navigation
-
-//// In a storyboard-based application, you will often want to do a little preparation before navigation
-//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-//
-//}
-
 
 @end

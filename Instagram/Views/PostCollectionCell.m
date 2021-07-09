@@ -21,12 +21,9 @@
     gradient.colors = @[(id)[UIColor clearColor].CGColor, (id)[UIColor blackColor].CGColor];
     gradient.locations = @[@0.4, @1.0];
     [self.photoView.layer insertSublayer:gradient atIndex:0];
-    
 }
 
-- (void)setCellWithPost: (Post*) post screenWidth:(CGFloat)width{
-    
-    
+- (void)setCellWithPost:(Post*) post screenWidth:(CGFloat)width {
     self.post = post;
     self.photoView.file = post[@"image"];
     [self.photoView loadInBackground];
@@ -34,14 +31,11 @@
     self.photoWidthConstraint.constant = width;
     self.profileView.file = self.post.account.image;
     [self.profileView loadInBackground];
-    
-    
 }
 
 - (void)didTap {
     [self.delegate clickPost:self.post];
 }
-
 
 - (IBAction)didLike:(id)sender {
     self.isLiked = !self.isLiked;
@@ -61,8 +55,6 @@
     [self.likeButton setTintColor:(self.isLiked ? [UIColor redColor] :  [UIColor whiteColor])];
     
     [self.post saveInBackground];
-
-    
 }
 
 @end

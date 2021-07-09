@@ -10,6 +10,7 @@
 #import "Post.h"
 
 @interface ComposeViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+
 @property (weak, nonatomic) IBOutlet UIImageView *photoView;
 @property (weak, nonatomic) IBOutlet UIButton *nextButton;
 @property (weak, nonatomic) IBOutlet UIButton *addButton;
@@ -35,12 +36,12 @@
     NSMutableArray *array = [NSMutableArray arrayWithObjects:
       [UIAction actionWithTitle:@"Camera" image:nil identifier:nil handler:^(UIAction* action){
         imagePickerVC.sourceType = UIImagePickerControllerSourceTypeCamera;
-        [self presentViewController:imagePickerVC animated:YES completion:nil];
-}],
+        [self presentViewController:imagePickerVC animated:YES completion:nil]; }],
+                             
       [UIAction actionWithTitle:@"Photo Library" image:nil identifier:nil handler:^(UIAction* action){
         imagePickerVC.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-        [self presentViewController:imagePickerVC animated:YES completion:nil];
-}],
+        [self presentViewController:imagePickerVC animated:YES completion:nil]; }],
+                             
       nil];
     
     if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
@@ -50,16 +51,11 @@
     UIMenu *menu = [UIMenu menuWithTitle:@"" children:array];
     self.addButton.menu = menu;
     self.addButton.showsMenuAsPrimaryAction = true;
-
-   
 }
 
-
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
-    
     UIImage *originalImage = info[UIImagePickerControllerOriginalImage];
     UIImage *editedImage = info[UIImagePickerControllerEditedImage];
-
     
     self.photoView.image = originalImage;
     
@@ -67,7 +63,7 @@
     self.nextButton.hidden = false;
 }
 
--(void) fetchUser{
+-(void)fetchUser {
     PFQuery *query = [PFQuery queryWithClassName:@"Account"];
     query.limit = 20;
     [query whereKey:@"user" equalTo:[PFUser currentUser]];
@@ -84,11 +80,9 @@
             NSLog(@"error: %@", error.localizedDescription);
         }
     }];
-    
 }
 
 #pragma mark - Navigation
-
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     NSLog(@"%@", self.user);
@@ -96,6 +90,5 @@
     newPostViewController.image = self.photoView.image;
     newPostViewController.user = self.user;
 }
-
 
 @end

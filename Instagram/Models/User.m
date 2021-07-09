@@ -19,7 +19,7 @@
     return @"Account";
 }
 
-+ (void) createUser: (PFUser *) user withImage:( UIImage * _Nullable )image withName: ( NSString * _Nullable )name withBio: ( NSString * _Nullable )bio withCompletion: (PFBooleanResultBlock  _Nullable)completion {
++ (void) createUser: (PFUser *) user withImage:( UIImage * _Nullable )image withName:( NSString * _Nullable )name withBio:( NSString * _Nullable )bio withCompletion:(PFBooleanResultBlock  _Nullable)completion {
     
     User *newUser = [User new];
     newUser.image = [self getPFFileFromImage:image];
@@ -31,14 +31,11 @@
 }
 
 + (PFFileObject *)getPFFileFromImage: (UIImage * _Nullable)image {
- 
-    // check if image is not nil
     if (!image) {
         return nil;
     }
     
     NSData *imageData = UIImagePNGRepresentation(image);
-    // get image data and check if that is not nil
     if (!imageData) {
         return nil;
     }

@@ -14,7 +14,6 @@
 #import "User.h"
 
 @interface FeedViewController () <UICollectionViewDelegate, UICollectionViewDataSource, PostCollectionCellDelegate, UICollectionViewDelegateFlowLayout>
-//@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
@@ -44,14 +43,13 @@
     
     [self.activityIndicator startAnimating];
     [self fetchFeed];
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
      self.navigationController.navigationBar.hidden = YES;
 }
 
--(void) fetchFeed{
+-(void)fetchFeed {
     PFQuery *query = [PFQuery queryWithClassName:@"Post"];
     [query orderByDescending:@"createdAt"];
     query.limit = 20;
@@ -70,16 +68,13 @@
             NSLog(@"error: %@", error.localizedDescription);
         }
     }];
-    
 }
 
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return self.arrayOfPosts.count;
 }
 
-
-- (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    
+- (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     PostCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PostCollectionCell" forIndexPath:indexPath];
 
     if (cell == nil) {
@@ -92,7 +87,6 @@
     [cell setCellWithPost:post screenWidth:self.collectionView.frame.size.width];
     
     cell.isLiked = [cell.post.likedBy containsObject:[PFUser currentUser].username];
-    
     [cell.likeButton setBackgroundImage: (cell.isLiked ? [UIImage systemImageNamed:@"heart.fill"] : [UIImage systemImageNamed:@"heart"]) forState: UIControlStateNormal];
     [cell.likeButton setTintColor:(cell.isLiked ? [UIColor redColor] :  [UIColor whiteColor])];
     
@@ -106,10 +100,7 @@
     [self performSegueWithIdentifier:@"DetailsSegue" sender:post];
 }
 
-
-
 #pragma mark - Navigation
-
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqual:@"DetailsSegue"]){
@@ -118,6 +109,5 @@
         detailsViewController.post = post;
     }
 }
-
 
 @end

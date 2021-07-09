@@ -12,6 +12,7 @@
 #import "SceneDelegate.h"
 
 @interface NewPostViewController ()
+
 @property (weak, nonatomic) IBOutlet UITextView *captionField;
 @property (weak, nonatomic) IBOutlet UIImageView *photoView;
 @property (weak, nonatomic) IBOutlet UIButton *postButton;
@@ -26,8 +27,6 @@
     self.postButton.layer.cornerRadius = 10;
     [self.captionField becomeFirstResponder];
     self.photoView.image = self.image;
-    
-    NSLog(@"%@", self.user);
 }
 
 - (UIImage *)resizeImage:(UIImage *)image withSize:(CGSize)size {
@@ -44,7 +43,7 @@
     return newImage;
 }
 
-- (void)viewWillAppear:(BOOL)animated{
+- (void)viewWillAppear:(BOOL)animated {
     self.navigationController.navigationBar.hidden = false;
 }
 
@@ -69,15 +68,5 @@
 - (IBAction)didEndEditing:(id)sender {
     [self.captionField endEditing:true];
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

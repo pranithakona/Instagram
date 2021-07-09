@@ -25,10 +25,9 @@
 @property (weak, nonatomic) IBOutlet PFImageView *toolbarImageView;
 @property (weak, nonatomic) IBOutlet PFImageView *profileImageView;
 
-
 @property (strong, nonatomic) NSMutableArray *arrayOfComments;
-@property (nonatomic) BOOL isLiked;
 @property (strong, nonatomic) User *user;
+@property (nonatomic) BOOL isLiked;
 
 @end
 
@@ -59,7 +58,6 @@
     self.photoView.file = self.post.image;
     [self.photoView loadInBackground];
     
-    
     self.authorLabel.text = self.post.author.username;
     self.captionLabel.text = self.post.caption;
     
@@ -75,7 +73,6 @@
     NSString *timeString = [formatter stringFromDate:date];
     self.createdAtLabel.text = [NSString stringWithFormat:@"%@ · %@", timeString, dateString];
     
-    
     self.isLiked = [self.post.likedBy containsObject:[PFUser currentUser].username];
     [self updateLabels];
     
@@ -84,14 +81,12 @@
     [self.hiddenField becomeFirstResponder];
     [self.commentField becomeFirstResponder];
     [self.hiddenField resignFirstResponder];
-
 }
 
 - (IBAction)didComment:(id)sender {
     if (self.hiddenField.isFirstResponder){
         [self.hiddenField resignFirstResponder];
         self.hiddenField.userInteractionEnabled = true;
-        
     } else {
         [self.hiddenField becomeFirstResponder];
         [self.commentField becomeFirstResponder];
@@ -100,7 +95,7 @@
     }
 }
 
--(void) fetchUser{
+- (void)fetchUser {
     PFQuery *query = [PFQuery queryWithClassName:@"Account"];
     query.limit = 20;
     [query whereKey:@"user" equalTo:[PFUser currentUser]];
@@ -146,8 +141,6 @@
     [self updateLabels];
 }
 
-
-
 - (IBAction)didPostComment:(id)sender {
     NSDictionary *comment = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:self.user.user.username, self.user.image, self.commentField.text, nil] forKeys:[NSArray arrayWithObjects:@"author", @"image", @"comment", nil]];
     self.post.commentCount = [NSNumber numberWithInt:[self.post.commentCount intValue] + 1];
@@ -162,11 +155,7 @@
     [self updateLabels];
 }
 
-- (IBAction)didEndEditing:(id)sender {
-    [self.commentField endEditing:true];
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.arrayOfComments.count;
 }
 
@@ -174,7 +163,6 @@
     CommentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CommentCell"];
     
     NSDictionary *comment = self.arrayOfComments[indexPath.row];
-
     cell.authorLabel.text = comment[@"author"];
     cell.profileImageView.file = comment[@"image"];
     [cell.profileImageView loadInBackground];
@@ -187,16 +175,12 @@
     [self dismissViewControllerAnimated:true completion:nil];
 }
 
-
-
 #pragma mark - Navigation
-
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     ProfileViewController *profileViewController = [segue destinationViewController];
     profileViewController.user = self.post.account;
     profileViewController.pfUser = self.post.author;
 }
-
 
 @end
