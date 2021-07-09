@@ -6,12 +6,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "User.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NewPostViewController : UIViewController
 
 @property (strong, nonatomic) UIImage *image;
+@property (strong, nonatomic) User *user;
 
 @end
 

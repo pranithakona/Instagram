@@ -1,18 +1,18 @@
 //
-//  ProfileViewController.h
+//  UserCell.h
 //  Instagram
 //
 //  Created by Pranitha Reddy Kona on 7/8/21.
 //
 
 #import <UIKit/UIKit.h>
-#import "User.h"
+#import <Parse/PFImageView.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ProfileViewController : UIViewController
+@interface UserCell : UICollectionViewCell
 
-@property (strong, nonatomic) User *user;
+@property (weak, nonatomic) IBOutlet PFImageView *photoView;
 
 @end
 

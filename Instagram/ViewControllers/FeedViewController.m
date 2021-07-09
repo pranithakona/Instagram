@@ -11,6 +11,7 @@
 #import "SceneDelegate.h"
 #import "PostCollectionCell.h"
 #import <Parse/Parse.h>
+#import "User.h"
 
 @interface FeedViewController () <UICollectionViewDelegate, UICollectionViewDataSource, PostCollectionCellDelegate, UICollectionViewDelegateFlowLayout>
 //@property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -56,10 +57,14 @@
     query.limit = 20;
     [query includeKey:@"image"];
     [query includeKey:@"author"];
+    [query includeKey:@"account"];
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *posts, NSError *error) {
         if (posts != nil) {
             self.arrayOfPosts = posts;
+            for (Post *post in posts){
+                //[post deleteInBackground];
+            }
             [self.collectionView reloadData];
             [self.refreshControl endRefreshing];
             [self.activityIndicator stopAnimating];
@@ -86,7 +91,13 @@
     }
     
     cell.delegate = self;
-    [cell setCellWithPost:self.arrayOfPosts[indexPath.item] screenWidth:self.collectionView.frame.size.width];
+    Post *post = self.arrayOfPosts[indexPath.item];
+    [cell setCellWithPost:post screenWidth:self.collectionView.frame.size.width];
+    
+    cell.isLiked = [cell.post.likedBy containsObject:[PFUser currentUser].username];
+    
+    [cell.likeButton setImage: (cell.isLiked ? [UIImage imageNamed:@"heartfill"] : [UIImage imageNamed:@"heart"]) forState: UIControlStateNormal];
+    [cell.likeButton setTintColor:(cell.isLiked ? [UIColor redColor] :  [UIColor whiteColor])];
     
     [cell setNeedsLayout];
     [cell layoutIfNeeded];

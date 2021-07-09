@@ -10,7 +10,7 @@
 #import "SettingsViewController.h"
 #import "SceneDelegate.h"
 #import "ProfileHeaderView.h"
-#import "ProfileCell.h"
+#import "UserCell.h"
 #import "Post.h"
 #import "User.h"
 #import <Parse/Parse.h>
@@ -37,6 +37,9 @@
     layout.minimumInteritemSpacing = 5;
     CGFloat itemWidth = (self.collectionView.frame.size.width - 30 - layout.minimumInteritemSpacing * 3)/3;
     layout.itemSize = CGSizeMake(itemWidth, itemWidth);
+    
+    
+    [self.collectionView registerNib:[UINib nibWithNibName:@"ProfileHeaderView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"ProfileHeaderView"];
     
     [self.activityIndicator startAnimating];
     [self fetchFeed];
@@ -95,10 +98,10 @@
 }
 
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    ProfileCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ProfileCell" forIndexPath:indexPath];
+    UserCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"UserCell" forIndexPath:indexPath];
     
     Post *post = self.arrayOfPosts[indexPath.row];
-    
+
     cell.photoView.file = post[@"image"];
     [cell.photoView loadInBackground];
     return cell;
@@ -114,6 +117,7 @@
     UIMenu *menu = [UIMenu menuWithTitle:@"" children:array];
     headerView.optionsButton.menu = menu;
     headerView.optionsButton.showsMenuAsPrimaryAction = true;
+    headerView.backButton.hidden = true;
     
     headerView.nameLabel.text = self.user.name;
     headerView.usernameLabel.text = [NSString stringWithFormat:@"@%@", self.user.user.username];

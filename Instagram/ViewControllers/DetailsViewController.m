@@ -6,10 +6,12 @@
 //
 
 #import "DetailsViewController.h"
+#import "ProfileViewController.h"
 #import <Parse/PFImageView.h>
 #import "CommentCell.h"
+#import "User.h"
 
-@interface DetailsViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface DetailsViewController () <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet PFImageView *photoView;
 @property (weak, nonatomic) IBOutlet UILabel *authorLabel;
 @property (weak, nonatomic) IBOutlet UILabel *captionLabel;
@@ -21,9 +23,12 @@
 @property (strong, nonatomic) IBOutlet UIToolbar *keyboardToolbar;
 @property (weak, nonatomic) IBOutlet UITextField *hiddenField;
 @property (weak, nonatomic) IBOutlet UIImageView *toolbarImageView;
+@property (weak, nonatomic) IBOutlet PFImageView *profileImageView;
+
 
 @property (strong, nonatomic) NSMutableArray *arrayOfComments;
 @property (nonatomic) BOOL isLiked;
+@property (strong, nonatomic) User *user;
 
 @end
 
@@ -32,9 +37,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self fetchUser];
+    
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
+    self.hiddenField.delegate = self;
+    self.hiddenField.inputAccessoryView = self.keyboardToolbar;
     self.commentField.delegate = self;
     self.commentField.inputAccessoryView = self.keyboardToolbar;
     self.keyboardToolbar.layer.cornerRadius = 15;
@@ -42,9 +51,15 @@
     
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     
+    self.profileImageView.layer.cornerRadius = self.profileImageView.bounds.size.width/2;
     self.photoView.layer.cornerRadius = 30;
+    
+    self.profileImageView.file = self.post.account.image;
+    [self.profileImageView loadInBackground];
     self.photoView.file = self.post.image;
     [self.photoView loadInBackground];
+    
+    
     self.authorLabel.text = self.post.author.username;
     self.captionLabel.text = self.post.caption;
     
@@ -66,14 +81,49 @@
     
     self.arrayOfComments = [NSMutableArray arrayWithArray: self.post.comments];
     
+    [self.hiddenField becomeFirstResponder];
     [self.commentField becomeFirstResponder];
+    [self.hiddenField resignFirstResponder];
 
+}
+
+- (IBAction)didComment:(id)sender {
+    if (self.hiddenField.isFirstResponder){
+        [self.hiddenField resignFirstResponder];
+        self.hiddenField.userInteractionEnabled = true;
+        
+    } else {
+        [self.hiddenField becomeFirstResponder];
+        [self.commentField becomeFirstResponder];
+        [self.hiddenField resignFirstResponder];
+        self.hiddenField.userInteractionEnabled = false;
+    }
+}
+
+-(void) fetchUser{
+    PFQuery *query = [PFQuery queryWithClassName:@"Account"];
+    query.limit = 20;
+    [query whereKey:@"user" equalTo:[PFUser currentUser]];
+    [query includeKey:@"image"];
+    [query includeKey:@"user"];
+    
+    [query findObjectsInBackgroundWithBlock:^(NSArray *posts, NSError *error) {
+        if (posts != nil) {
+            self.user = posts[0];
+            self.commentButton.enabled = true;
+            NSLog(@"Successfully loaded user");
+        } else {
+            NSLog(@"error: %@", error.localizedDescription);
+        }
+    }];
+    
 }
 
 - (void)updateLabels {
     [self.likeButton setTitle:[NSString stringWithFormat: @"%@", self.post.likeCount] forState:UIControlStateNormal];
     [self.commentButton setTitle:[NSString stringWithFormat: @"%@", self.post.commentCount] forState:UIControlStateNormal];
     [self.likeButton setImage: (self.isLiked ? [UIImage imageNamed:@"heartfill"] : [UIImage imageNamed:@"heart"]) forState: UIControlStateNormal];
+    [self.likeButton setTintColor:(self.isLiked ? [UIColor redColor] :  [UIColor whiteColor])];
 }
 
 - (IBAction)didLike:(id)sender {
@@ -94,22 +144,10 @@
     [self updateLabels];
 }
 
-- (IBAction)didComment:(id)sender {
-    if (self.commentField.isFirstResponder){
-        NSLog(@"yes");
-        //self.keyboardToolbar.hidden = true;
-        [self.commentField resignFirstResponder];
-        
-    } else {
-        NSLog(@"no");
-        //self.keyboardToolbar.hidden = false;
-        [self.commentField becomeFirstResponder];
-        
-    }
-}
+
 
 - (IBAction)didPostComment:(id)sender {
-    NSDictionary *comment = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:[PFUser currentUser].username, self.commentField.text, nil] forKeys:[NSArray arrayWithObjects:@"author", @"comment", nil]];
+    NSDictionary *comment = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:self.user.user.username, self.user.image, self.commentField.text, nil] forKeys:[NSArray arrayWithObjects:@"author", @"image", @"comment", nil]];
     self.post.commentCount = [NSNumber numberWithInt:[self.post.commentCount intValue] + 1];
     [self.arrayOfComments insertObject:comment atIndex:0];
     [self.tableView reloadData];
@@ -122,6 +160,10 @@
     [self updateLabels];
 }
 
+- (IBAction)didEndEditing:(id)sender {
+    [self.commentField endEditing:true];
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.arrayOfComments.count;
 }
@@ -131,22 +173,28 @@
     
     NSDictionary *comment = self.arrayOfComments[indexPath.row];
 
+    //User *commentUser = comment[@"author"];
     cell.authorLabel.text = comment[@"author"];
+    cell.profileImageView.file = comment[@"image"];
+    [cell.profileImageView loadInBackground];
     cell.commentLabel.text = comment[@"comment"];
     
     return cell;
 }
 
+- (IBAction)doDismiss:(id)sender {
+    [self dismissViewControllerAnimated:true completion:nil];
+}
 
 
-/*
+
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    ProfileViewController *profileViewController = [segue destinationViewController];
+    profileViewController.user = self.post.account;
 }
-*/
+
 
 @end

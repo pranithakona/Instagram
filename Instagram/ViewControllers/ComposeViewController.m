@@ -14,12 +14,16 @@
 @property (weak, nonatomic) IBOutlet UIButton *nextButton;
 @property (weak, nonatomic) IBOutlet UIButton *addButton;
 
+@property (strong, nonatomic) User *user;
+
 @end
 
 @implementation ComposeViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self fetchUser];
     
     self.nextButton.layer.cornerRadius = 10;
     self.addButton.layer.cornerRadius = 10;
@@ -50,10 +54,6 @@
    
 }
 
-//- (void)viewWillAppear:(BOOL)animated{
-//    self.photoView.image = [UIImage systemImageNamed:@"camera.metering"];
-//    self.nextButton.hidden = true;
-//}
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
     
@@ -67,13 +67,34 @@
     self.nextButton.hidden = false;
 }
 
+-(void) fetchUser{
+    PFQuery *query = [PFQuery queryWithClassName:@"Account"];
+    query.limit = 20;
+    [query whereKey:@"user" equalTo:[PFUser currentUser]];
+    [query includeKey:@"image"];
+    [query includeKey:@"bio"];
+    [query includeKey:@"name"];
+    [query includeKey:@"user"];
+    
+    [query findObjectsInBackgroundWithBlock:^(NSArray *posts, NSError *error) {
+        if (posts != nil) {
+            self.user = posts[0];
+            NSLog(@"Successfully loaded user");
+        } else {
+            NSLog(@"error: %@", error.localizedDescription);
+        }
+    }];
+    
+}
 
 #pragma mark - Navigation
 
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    NSLog(@"%@", self.user);
     NewPostViewController *newPostViewController = [segue destinationViewController];
     newPostViewController.image = self.photoView.image;
+    newPostViewController.user = self.user;
 }
 
 

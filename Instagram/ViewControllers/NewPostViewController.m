@@ -6,8 +6,10 @@
 //
 
 #import "NewPostViewController.h"
+#import "FeedViewController.h"
 #import "Post.h"
 #import <Parse/Parse.h>
+#import "SceneDelegate.h"
 
 @interface NewPostViewController ()
 @property (weak, nonatomic) IBOutlet UITextView *captionField;
@@ -24,6 +26,8 @@
     self.postButton.layer.cornerRadius = 10;
     [self.captionField becomeFirstResponder];
     self.photoView.image = self.image;
+    
+    NSLog(@"%@", self.user);
 }
 
 - (UIImage *)resizeImage:(UIImage *)image withSize:(CGSize)size {
@@ -47,12 +51,15 @@
 - (IBAction)onPost:(id)sender {
     UIImage *newImage = [self resizeImage:self.image withSize:CGSizeMake(500, 500)];
     [self.activityIndicator startAnimating];
-    [Post postUserImage:newImage withCaption:self.captionField.text withCompletion:^(BOOL succeeded, NSError *error) {
+    [Post postUserImage:newImage withCaption:self.captionField.text withUser:self.user withCompletion:^(BOOL succeeded, NSError *error) { 
         if (succeeded){
             NSLog(@"successfully posted picture");
             [self.activityIndicator stopAnimating];
-            [self performSegueWithIdentifier:@"composeSegue" sender:nil];
-            self.tabBarController.selectedIndex = 0;
+
+            SceneDelegate *sceneDelegate = (SceneDelegate *)[UIApplication sharedApplication].connectedScenes.allObjects[0].delegate;
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            UITabBarController *tabBarController = [storyboard instantiateViewControllerWithIdentifier:@"FeedTabBarController"];
+            sceneDelegate.window.rootViewController = tabBarController;
         } else {
             NSLog(@"error: %@", error);
         }

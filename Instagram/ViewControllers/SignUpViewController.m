@@ -45,7 +45,7 @@
                NSLog(@"Error: %@", error.localizedDescription);
            } else {
                NSLog(@"User registered successfully");
-               [User createUser:[PFUser currentUser] withImage:nil withName:[PFUser currentUser].username withUsername:[PFUser currentUser].username withBio:nil withCompletion:nil];
+               [User createUser:[PFUser currentUser] withImage:[UIImage systemImageNamed:@"person.circle"] withName:[PFUser currentUser].username withUsername:[PFUser currentUser].username withBio:nil withCompletion:nil];
                [self performSegueWithIdentifier:@"signupSegue" sender:nil];
            }
        }];

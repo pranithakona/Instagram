@@ -8,10 +8,11 @@
 #import "SettingsViewController.h"
 #import <Parse/PFImageView.h>
 
-@interface SettingsViewController ()
+@interface SettingsViewController () <UIImagePickerControllerDelegate>
 @property (weak, nonatomic) IBOutlet PFImageView *photoView;
 @property (weak, nonatomic) IBOutlet UITextField *nameLabel;
 @property (weak, nonatomic) IBOutlet UITextField *bioLabel;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 
 @end
@@ -39,10 +40,15 @@
 - (IBAction)doUpdateUser:(id)sender {
     self.user.name = self.nameLabel.text;
     self.user.bio = self.bioLabel.text;
-    self.user.image = [self getPFFileFromImage:self.photoView.image];
+    UIImage *newImage = [self resizeImage:self.photoView.image withSize:CGSizeMake(200,200)];
+    self.user.image = [self getPFFileFromImage:newImage];
     
-    [self.user saveInBackground];
-    [self dismissViewControllerAnimated:true completion:nil];
+    [self.activityIndicator startAnimating];
+    [self.user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        [self.activityIndicator stopAnimating];
+        [self dismissViewControllerAnimated:true completion:nil];
+    }];
+    
 }
 
 - (PFFileObject *)getPFFileFromImage: (UIImage * _Nullable)image {
@@ -61,7 +67,38 @@
     return [PFFileObject fileObjectWithName:@"image.png" data:imageData];
 }
 
+- (UIImage *)resizeImage:(UIImage *)image withSize:(CGSize)size {
+    UIImageView *resizeImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height)];
+    
+    resizeImageView.contentMode = UIViewContentModeScaleAspectFill;
+    resizeImageView.image = image;
+    
+    UIGraphicsBeginImageContext(size);
+    [resizeImageView.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return newImage;
+}
 
+- (IBAction)doChangePhoto:(id)sender {
+    UIImagePickerController *imagePickerVC = [UIImagePickerController new];
+    imagePickerVC.delegate = self;
+    imagePickerVC.allowsEditing = YES;
+    imagePickerVC.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    [self presentViewController:imagePickerVC animated:YES completion:nil];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
+    
+    UIImage *originalImage = info[UIImagePickerControllerOriginalImage];
+    UIImage *editedImage = info[UIImagePickerControllerEditedImage];
+
+    
+    self.photoView.image = originalImage;
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 /*
 #pragma mark - Navigation
