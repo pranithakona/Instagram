@@ -43,18 +43,20 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fvB-wl-VL1">
-                                <rect key="frame" x="15" y="451" width="24" height="24"/>
+                                <rect key="frame" x="20" y="451" width="28" height="23"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="28" id="08K-On-wGZ"/>
+                                    <constraint firstAttribute="height" constant="25.5" id="g0F-fy-EYW"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal">
-                                    <imageReference key="image" image="heart" symbolScale="large"/>
-                                </state>
+                                <state key="normal" backgroundImage="heart" catalog="system"/>
                                 <connections>
                                     <action selector="didLike:" destination="009-To-jpW" eventType="touchUpInside" id="c9x-u2-eCh"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R05-Xv-POG">
-                                <rect key="frame" x="402.5" y="450" width="20.5" height="25"/>
+                                <rect key="frame" x="397.5" y="450" width="20.5" height="25"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal">
@@ -62,7 +64,7 @@
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZJW-fH-E9b">
-                                <rect key="frame" x="59" y="450.5" width="27.5" height="24.5"/>
+                                <rect key="frame" x="63" y="450.5" width="27.5" height="24.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal">
@@ -82,11 +84,11 @@
                             <constraint firstAttribute="trailing" secondItem="3Sm-h2-uEY" secondAttribute="trailing" constant="5" id="R6g-xP-In0"/>
                             <constraint firstAttribute="bottom" secondItem="fvB-wl-VL1" secondAttribute="bottom" constant="65" id="YzY-Dn-lKJ"/>
                             <constraint firstItem="3Sm-h2-uEY" firstAttribute="leading" secondItem="fRC-KN-59m" secondAttribute="leading" constant="5" id="ddY-RW-dm0"/>
-                            <constraint firstItem="fvB-wl-VL1" firstAttribute="leading" secondItem="fRC-KN-59m" secondAttribute="leading" constant="15" id="iEI-UV-qFu"/>
-                            <constraint firstAttribute="trailing" secondItem="R05-Xv-POG" secondAttribute="trailing" constant="15" id="mRV-hT-fVG"/>
+                            <constraint firstItem="fvB-wl-VL1" firstAttribute="leading" secondItem="fRC-KN-59m" secondAttribute="leading" constant="20" id="iEI-UV-qFu"/>
+                            <constraint firstAttribute="trailing" secondItem="R05-Xv-POG" secondAttribute="trailing" constant="20" id="mRV-hT-fVG"/>
                             <constraint firstAttribute="width" constant="438" id="mpQ-X4-EBh"/>
                             <constraint firstItem="3Sm-h2-uEY" firstAttribute="top" secondItem="fRC-KN-59m" secondAttribute="top" constant="5" id="mpp-tn-KHM"/>
-                            <constraint firstItem="ZJW-fH-E9b" firstAttribute="leading" secondItem="fvB-wl-VL1" secondAttribute="trailing" constant="20" id="pnh-oL-tyf"/>
+                            <constraint firstItem="ZJW-fH-E9b" firstAttribute="leading" secondItem="fvB-wl-VL1" secondAttribute="trailing" constant="15" id="pnh-oL-tyf"/>
                             <constraint firstAttribute="bottom" secondItem="3Sm-h2-uEY" secondAttribute="bottom" id="qZu-do-IPq"/>
                             <constraint firstItem="F5N-Qh-LcI" firstAttribute="leading" secondItem="XoB-3d-lk3" secondAttribute="trailing" constant="5" id="x8F-R9-RSP"/>
                         </constraints>
@@ -112,7 +114,7 @@
     </objects>
     <resources>
         <image name="bookmark" catalog="system" width="112" height="128"/>
-        <image name="heart" width="24" height="24"/>
+        <image name="heart" catalog="system" width="128" height="109"/>
         <image name="message" catalog="system" width="128" height="113"/>
         <image name="person" catalog="system" width="128" height="117"/>
     </resources>

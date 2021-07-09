@@ -96,7 +96,7 @@
     
     cell.isLiked = [cell.post.likedBy containsObject:[PFUser currentUser].username];
     
-    [cell.likeButton setImage: (cell.isLiked ? [UIImage imageNamed:@"heartfill"] : [UIImage imageNamed:@"heart"]) forState: UIControlStateNormal];
+    [cell.likeButton setBackgroundImage: (cell.isLiked ? [UIImage systemImageNamed:@"heart.fill"] : [UIImage systemImageNamed:@"heart"]) forState: UIControlStateNormal];
     [cell.likeButton setTintColor:(cell.isLiked ? [UIColor redColor] :  [UIColor whiteColor])];
     
     [cell setNeedsLayout];

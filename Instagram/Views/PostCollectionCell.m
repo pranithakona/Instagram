@@ -16,7 +16,12 @@
     self.profileView.layer.cornerRadius = self.profileView.bounds.size.width/2;
     self.photoView.layer.cornerRadius = 30;
     
-   
+    CAGradientLayer *gradient = [CAGradientLayer layer];
+    gradient.frame = self.photoView.bounds;
+    gradient.colors = @[(id)[UIColor clearColor].CGColor, (id)[UIColor blackColor].CGColor];
+    gradient.locations = @[@0.0, @0.9];
+    [self.photoView.layer insertSublayer:gradient atIndex:0];
+    
 }
 
 - (void)setCellWithPost: (Post*) post screenWidth:(CGFloat)width{
@@ -52,7 +57,7 @@
         [self.post setObject:likedBy forKey:@"likedBy"];
     }
     
-    [self.likeButton setImage: (self.isLiked ? [UIImage imageNamed:@"heartfill"] : [UIImage imageNamed:@"heart"]) forState: UIControlStateNormal];
+    [self.likeButton setBackgroundImage: (self.isLiked ? [UIImage systemImageNamed:@"heart.fill"] : [UIImage systemImageNamed:@"heart"]) forState: UIControlStateNormal];
     [self.likeButton setTintColor:(self.isLiked ? [UIColor redColor] :  [UIColor whiteColor])];
     
     [self.post saveInBackground];
