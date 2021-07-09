@@ -226,9 +226,6 @@
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="Y2O-rx-Qwg" secondAttribute="height" multiplier="4:5" id="Wp3-kb-typ"/>
                                         </constraints>
-                                        <connections>
-                                            <outletCollection property="gestureRecognizers" destination="k3P-33-16o" appends="YES" id="3nz-6W-Qbp"/>
-                                        </connections>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bnU-OR-aCC">
                                         <rect key="frame" x="8" y="8" width="106.33333333333333" height="50"/>
@@ -264,8 +261,11 @@
                                             <outletCollection property="gestureRecognizers" destination="Jgr-Zw-PzA" appends="YES" id="PpO-yD-3gL"/>
                                         </connections>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sUb-k5-fsm">
-                                        <rect key="frame" x="10" y="456" width="57" height="22"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sUb-k5-fsm">
+                                        <rect key="frame" x="10" y="455.66666666666669" width="51" height="22"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="51" id="lQf-Vq-Z2C"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -285,7 +285,7 @@
                                         </state>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lvi-Hc-rlx">
-                                        <rect key="frame" x="55.333333333333343" y="453.66666666666669" width="50" height="24"/>
+                                        <rect key="frame" x="71" y="453.66666666666669" width="50" height="24"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="50" id="vmi-Qy-V0L"/>
                                         </constraints>
@@ -356,7 +356,7 @@
                         <outlet property="photoView" destination="Y2O-rx-Qwg" id="j2Z-88-utJ"/>
                         <outlet property="profileImageView" destination="UGw-ma-1O7" id="0EN-oe-JwQ"/>
                         <outlet property="tableView" destination="Wgv-zB-Ehw" id="xAG-Xg-T59"/>
-                        <outlet property="toolbarImageView" destination="J94-IT-EpC" id="4yo-Ka-SRT"/>
+                        <outlet property="toolbarImageView" destination="J94-IT-EpC" id="1HZ-uW-rKo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Nfp-FY-L71" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -375,7 +375,7 @@
                                 <rect key="frame" x="16" y="22" width="316" height="0.0"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="J94-IT-EpC">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="J94-IT-EpC" customClass="PFImageView">
                                         <rect key="frame" x="0.0" y="5" width="35" height="35"/>
                                         <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
@@ -416,11 +416,6 @@
                         </barButtonItem>
                     </items>
                 </toolbar>
-                <tapGestureRecognizer id="k3P-33-16o">
-                    <connections>
-                        <action selector="didEndEditing:" destination="xWP-ag-DXV" id="EOW-q9-vH3"/>
-                    </connections>
-                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2007.6923076923076" y="851.65876777251185"/>
         </scene>

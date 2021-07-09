@@ -19,7 +19,7 @@
     CAGradientLayer *gradient = [CAGradientLayer layer];
     gradient.frame = self.photoView.bounds;
     gradient.colors = @[(id)[UIColor clearColor].CGColor, (id)[UIColor blackColor].CGColor];
-    gradient.locations = @[@0.0, @0.9];
+    gradient.locations = @[@0.4, @1.0];
     [self.photoView.layer insertSublayer:gradient atIndex:0];
     
 }

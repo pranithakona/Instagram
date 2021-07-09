@@ -32,7 +32,7 @@
     imagePickerVC.delegate = self;
     imagePickerVC.allowsEditing = YES;
     
-    NSMutableArray *array = [NSArray arrayWithObjects:
+    NSMutableArray *array = [NSMutableArray arrayWithObjects:
       [UIAction actionWithTitle:@"Camera" image:nil identifier:nil handler:^(UIAction* action){
         imagePickerVC.sourceType = UIImagePickerControllerSourceTypeCamera;
         [self presentViewController:imagePickerVC animated:YES completion:nil];
@@ -44,7 +44,7 @@
       nil];
     
     if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
-        [array removeObjectAtIndex:1];
+        [array removeObjectAtIndex:0];
     }
     
     UIMenu *menu = [UIMenu menuWithTitle:@"" children:array];

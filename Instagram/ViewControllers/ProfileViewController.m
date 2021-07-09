@@ -88,9 +88,9 @@
 
     headerView.optionsButton.hidden = true;
     [headerView.backButton addTarget:self action:@selector(didTapProfile) forControlEvents:UIControlEventTouchUpInside];
-    
+    NSLog(@"inside user: %@", self.user.user);
     headerView.nameLabel.text = self.user.name;
-    headerView.usernameLabel.text = [NSString stringWithFormat:@"@%@", self.user.user.username];
+    headerView.usernameLabel.text = [NSString stringWithFormat:@"@%@", self.pfUser.username];
     headerView.bioLabel.text = self.user.bio;
     if (self.user.image){
         headerView.profileImageView.file = self.user.image;

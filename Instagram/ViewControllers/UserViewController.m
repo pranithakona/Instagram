@@ -45,7 +45,6 @@
     [self fetchFeed];
     [self fetchUser];
     
-
 }
 
 - (void)viewWillAppear:(BOOL)animated{

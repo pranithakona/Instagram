@@ -62,9 +62,6 @@
     [query findObjectsInBackgroundWithBlock:^(NSArray *posts, NSError *error) {
         if (posts != nil) {
             self.arrayOfPosts = posts;
-            for (Post *post in posts){
-                //[post deleteInBackground];
-            }
             [self.collectionView reloadData];
             [self.refreshControl endRefreshing];
             [self.activityIndicator stopAnimating];

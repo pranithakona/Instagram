@@ -22,7 +22,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *commentField;
 @property (strong, nonatomic) IBOutlet UIToolbar *keyboardToolbar;
 @property (weak, nonatomic) IBOutlet UITextField *hiddenField;
-@property (weak, nonatomic) IBOutlet UIImageView *toolbarImageView;
+@property (weak, nonatomic) IBOutlet PFImageView *toolbarImageView;
 @property (weak, nonatomic) IBOutlet PFImageView *profileImageView;
 
 
@@ -111,6 +111,8 @@
         if (posts != nil) {
             self.user = posts[0];
             self.commentButton.enabled = true;
+            self.toolbarImageView.file = self.user.image;
+            [self.toolbarImageView loadInBackground];
             NSLog(@"Successfully loaded user");
         } else {
             NSLog(@"error: %@", error.localizedDescription);
@@ -173,7 +175,6 @@
     
     NSDictionary *comment = self.arrayOfComments[indexPath.row];
 
-    //User *commentUser = comment[@"author"];
     cell.authorLabel.text = comment[@"author"];
     cell.profileImageView.file = comment[@"image"];
     [cell.profileImageView loadInBackground];
@@ -194,6 +195,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     ProfileViewController *profileViewController = [segue destinationViewController];
     profileViewController.user = self.post.account;
+    profileViewController.pfUser = self.post.author;
 }
 
 
